@@ -1,0 +1,185 @@
+/Please save or print a copy of this page for your records. A receipt has also been emailed to you, but you should still save or print a copy of this web page to make certain that you have proof of your turnin. If your files become lost or damaged and you do not have any record of your receipt, we will not be able to give you any credit for your work. 
+The following file(s) were received:
+Personality.java   (3248 bytes, sha256: 627ee9b6481dc8b3a551e68130254b91) 
+//Gonghao Zhang
+//10/13/19
+//CSE143X
+//TA: Eric Matthew Koegler
+//Assignment #3
+//
+//This program will show the analysis result of the personality.
+ 
+import java.io.*;
+import java.util.*;
+ 
+public class Personality {
+   public static final int category = 4;
+ 
+   public static void main(String[] args) throws FileNotFoundException {
+       giveIntro();
+       Scanner console = new Scanner(System.in);
+ 
+       System.out.print("input file name? ");
+       String inputFile = console.next();
+       System.out.print("output file name? ");
+       String outputFile = console.next();
+       Scanner input = new Scanner(new File(inputFile));
+       PrintStream output = new PrintStream(new File(outputFile));
+       processFile(input, output);
+ 
+       }
+ 
+   //give an introduction to the program 
+   public static void giveIntro() {
+     System.out.println("This program processes a file of answers to the");
+     System.out.println("Keirsey Temperament Sorter.  It converts the");
+     System.out.println("various A and B answers for each person into");
+     System.out.println("a sequence of B-percentages and then into a");
+     System.out.println("four-letter personality type.");
+     System.out.println(); 
+   }
+ 
+   //to process the input file to get an output file 
+   public static void processFile(Scanner input, PrintStream output) {
+      while(input.hasNextLine()) {
+         String name = input.nextLine();
+         String response = input.nextLine();
+         output.print(name + ": ");
+         output.print(Arrays.toString(computeResult(response)));
+         output.print(" = ");
+         output.println(computeCategory(computeResult(response)));
+      }
+   } 
+ 
+   //compute the each percentage of B answers in total response
+   public static int[] computeResult(String response) {
+      int[] result = new int[category];
+      int[] groupA = new int[category];
+      int[] groupB = new int[category];
+      //70 answer in total, divided into 10 cycles.
+      for(int i = 0; i < 10; i++) {
+         //7 answer in each cycle compared to 4 category(1-1, 2/3-2, 4/5-3, 6/7-4)
+         for(int u = 0; u < 7; u++) {
+            if(response.charAt(u + 7 * i) == 'a' || response.charAt(u + 7 * i) == 'A') {
+            groupA[(u + 1) / 2]++;
+            } else if(response.charAt(u + 7 * i) == 'b' || response.charAt(u + 7 * i) == 'B') {
+            groupB[(u + 1) / 2]++;
+            }
+         }
+      }
+      for(int i = 0; i < 4; i++) {
+         //get a near integer percentage 
+         int percent = (int) Math.round(groupB[i] * 1.0 / (groupA[i] + groupB[i]) * 100);
+         result[i] = percent;
+      }
+      return result;
+   }
+ 
+   //according to the percentage, compute the category of the person
+   public static char[] computeCategory(int[] computeResult) {
+      char[] finalCategory = new char[category];
+      char[] aCategory = {'E','S','T','J'};
+      char[] bCategory = {'I','N','F','P'};
+      for(int i = 0; i < 4; i++) {
+         if(computeResult[i] > 50) {
+            finalCategory[i] = bCategory[i];
+         } else if(computeResult[i] < 50) {
+            finalCategory[i] = aCategory[i];
+         } else {
+            finalCategory[i] = 'X';
+         }
+      }
+      return finalCategory;
+   } 
+}
+ 
+                  
+         totalGuess++;
+         }
+       
+         totalGame++;
+      
+      
+      System.out.println("You got it right in " + " guesses");
+      System.out.println("Do you want to play again?");
+      char response = console.next(); 
+      }
+            
+   }
+    
+   public static void returnResult(int totalGame, int totalGuess, double gameGuessRatio, int bestGame) {
+      System.out.println("  Overall results:")
+      System.out.println("total games   = " + totalGame);
+      System.out.println("total guesses =" + totalGuess);
+      gameGuessRatio = totalGame/totalGuess;
+      System.out.println("guesses/game  = " + round1(gameGuessRatio);
+      System.out.println("best game     =" + bestGame);
+   
+}
+
+
+
+
+
+
+
+public static String randomNumber(int digits) {
+      Random r = new Random();
+      String number1 = "";
+      int b = r.nextInt(9) + 1;
+      for( int i = 0; i <= digits; i++) {
+         number1 += b;
+        
+         }
+         return number1;
+     }
+     
+     public static  
+      while(!guessNumber.equals(randomNumber(digits))) {
+         System.out.print("Your guess? ");
+         guessNumber = console.next();
+         compare(guessNumber, randomNumber(digits));
+
+         
+   
+   public static int game(Scanner console) {
+      System.out.print("How many digits this time? ");
+      int totalGuess=0;
+      int guess = 0;
+      int digits = console.nextInt();      
+      String guessNumber = "";
+      while(!guessNumber.equals(randomNumber(digits))) {
+         System.out.print("Your guess? ");
+         guessNumber = console.next();
+         compare(guessNumber, randomNumber(digits));
+         
+        /* for(int i = 0; i < digits; i++) {
+            if(guessNumber.charAt(i).equals(randomNumber(digits).charAt(i))) {
+               replace(String s, int index, String replacement)
+               System.out.println("fermi ");
+            }
+            else
+            for(int int u = 0; u < digits; u++)
+            else if(guessNumber.charAt(i).equals(randomNumber(digits).charAt(u))*/
+            guess++;
+            totalGuess++;
+         //main part
+         if(guess < bestGame) {
+            bestGame = guess;
+            guess = 0;
+         }
+      }
+   }
+       
+      System.out.println("You got it right in " + guess + " guesses");
+      System.out.print("Do you want to play again? ");
+      String response = console.next(); 
+      
+      
+      
+      return totalGuess;
+   }
+
+  
+      
+      
